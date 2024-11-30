@@ -1,0 +1,1853 @@
+% mnguide.tex
+%
+% v1.3 released 14th September 1995
+% v1.2 released 5th September 1994 (M. Reed)
+% v1.1 released 18th July 1994
+% v1.0 released 28th January 1994
+
+\documentstyle{mn}
+
+% If your system has the AMS fonts version 2.0 installed, MN.sty can be
+% made to use them by uncommenting the line: %\AMStwofontstrue
+%
+% By doing this, you will be able to obtain upright Greek characters.
+% e.g. \umu, \upi etc.  See the section on "Upright Greek characters" in
+% this guide for further information.
+%
+% If you are using AMS 2.0 fonts, bold math letters/symbols are available
+% at a larger range of sizes for NFSS release 1 and 2 (using \boldmath or
+% preferably \bmath).
+
+\newif\ifAMStwofonts
+%\AMStwofontstrue
+
+%%%%% AUTHORS - PLACE YOUR OWN MACROS HERE %%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifoldfss
+  %
+  \newcommand{\rmn}[1] {{\rm #1}}
+  \newcommand{\itl}[1] {{\it #1}}
+  \newcommand{\bld}[1] {{\bf #1}}
+  %
+  \ifCUPmtlplainloaded \else
+    \NewTextAlphabet{textbfit} {cmbxti10} {}
+    \NewTextAlphabet{textbfss} {cmssbx10} {}
+    \NewMathAlphabet{mathbfit} {cmbxti10} {} % for math mode
+    \NewMathAlphabet{mathbfss} {cmssbx10} {} %  "   "    "
+  \fi
+  %
+  \ifAMStwofonts
+  %
+    \ifCUPmtlplainloaded \else
+      \NewSymbolFont{upmath} {eurm10}
+      \NewSymbolFont{AMSa} {msam10}
+      \NewMathSymbol{\upi}     {0}{upmath}{19}
+      \NewMathSymbol{\umu}     {0}{upmath}{16}
+      \NewMathSymbol{\upartial}{0}{upmath}{40}
+      \NewMathSymbol{\leqslant}{3}{AMSa}{36}
+      \NewMathSymbol{\geqslant}{3}{AMSa}{3E}
+      \let\oldle=\le     \let\oldleq=\leq
+      \let\oldge=\ge     \let\oldgeq=\geq
+      \let\leq=\leqslant \let\le=\leqslant
+      \let\geq=\geqslant \let\ge=\geqslant
+    \fi
+    %
+  \fi
+%
+\fi % End of OFSS
+
+\ifnfssone
+  %
+  \newmathalphabet{\mathit}
+  \addtoversion{normal}{\mathit}{cmr}{m}{it}
+  \addtoversion{bold}{\mathit}{cmr}{bx}{it}
+  %
+  \newcommand{\rmn}[1] {\mathrm{#1}}
+  \newcommand{\itl}[1] {\mathit{#1}}
+  \newcommand{\bld}[1] {\mathbf{#1}}
+  %
+  \def\textbfit{\protect\txtbfit}
+  \def\textbfss{\protect\txtbfss}
+  \long\def\txtbfit#1{{\fontfamily{cmr}\fontseries{bx}\fontshape{it}%
+    \selectfont #1}}
+  \long\def\txtbfss#1{{\fontfamily{cmss}\fontseries{bx}\fontshape{n}%
+    \selectfont #1}}
+  %
+  \newmathalphabet{\mathbfit} % math mode version of \textbfit{..}
+  \addtoversion{normal}{\mathbfit}{cmr}{bx}{it}
+  \addtoversion{bold}{\mathbfit}{cmr}{bx}{it}
+  %
+  \newmathalphabet{\mathbfss} % math mode version of \textbfss{..}
+  \addtoversion{normal}{\mathbfss}{cmss}{bx}{n}
+  \addtoversion{bold}{\mathbfss}{cmss}{bx}{n}
+  %
+  \ifAMStwofonts
+    %
+    \ifCUPmtlplainloaded \else
+      %
+      % Make NFSS 1 use the extra sizes available for bold math italic and
+      % bold math symbol. These definitions may already be loaded if your
+      % NFSS format was built with fontdef.max.
+      %
+      \UseAMStwoboldmath
+      %
+      \makeatletter
+      \new@mathgroup\upmath@group
+      \define@mathgroup\mv@normal\upmath@group{eur}{m}{n}
+      \define@mathgroup\mv@bold\upmath@group{eur}{b}{n}
+      \edef\UPM{\hexnumber\upmath@group}
+      %
+      \new@mathgroup\amsa@group
+      \define@mathgroup\mv@normal\amsa@group{msa}{m}{n}
+      \define@mathgroup\mv@bold\amsa@group{msa}{m}{n}
+      \edef\AMSa{\hexnumber\amsa@group}
+      \makeatother
+      %
+      \mathchardef\upi="0\UPM19
+      \mathchardef\umu="0\UPM16
+      \mathchardef\upartial="0\UPM40
+      \mathchardef\leqslant="3\AMSa36
+      \mathchardef\geqslant="3\AMSa3E
+      %
+      \let\oldle=\le     \let\oldleq=\leq
+      \let\oldge=\ge     \let\oldgeq=\geq
+      \let\leq=\leqslant \let\le=\leqslant
+      \let\geq=\geqslant \let\ge=\geqslant
+      %
+    \fi
+  \fi
+  %
+\fi % End of NFSS release 1
+
+\ifnfsstwo
+  %
+  \newcommand{\rmn}[1] {\mathrm{#1}}
+  \newcommand{\itl}[1] {\mathit{#1}}
+  \newcommand{\bld}[1] {\mathbf{#1}}
+  %
+  \def\textbfit{\protect\txtbfit}
+  \def\textbfss{\protect\txtbfss}
+  \long\def\txtbfit#1{{\fontfamily{cmr}\fontseries{bx}\fontshape{it}%
+    \selectfont #1}}
+  \long\def\txtbfss#1{{\fontfamily{cmss}\fontseries{bx}\fontshape{n}%
+    \selectfont #1}}
+  %
+  \DeclareMathAlphabet{\mathbfit}{OT1}{cmr}{bx}{it}
+  \SetMathAlphabet\mathbfit{bold}{OT1}{cmr}{bx}{it}
+  \DeclareMathAlphabet{\mathbfss}{OT1}{cmss}{bx}{n}
+  \SetMathAlphabet\mathbfss{bold}{OT1}{cmss}{bx}{n}
+  %
+  \ifAMStwofonts
+    %
+    \ifCUPmtlplainloaded \else
+      \DeclareSymbolFont{UPM}{U}{eur}{m}{n}
+      \SetSymbolFont{UPM}{bold}{U}{eur}{b}{n}
+      \DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
+      \DeclareMathSymbol{\upi}{0}{UPM}{"19}
+      \DeclareMathSymbol{\umu}{0}{UPM}{"16}
+      \DeclareMathSymbol{\upartial}{0}{UPM}{"40}
+      \DeclareMathSymbol{\leqslant}{3}{AMSa}{"36}
+      \DeclareMathSymbol{\geqslant}{3}{AMSa}{"3E}
+      %
+      \let\oldle=\le     \let\oldleq=\leq
+      \let\oldge=\ge     \let\oldgeq=\geq
+      \let\leq=\leqslant \let\le=\leqslant
+      \let\geq=\geqslant \let\ge=\geqslant
+      %
+    \fi
+  \fi
+  %
+\fi % End of NFSS release 2
+
+\ifCUPmtlplainloaded \else
+  \ifAMStwofonts \else % If no AMS fonts
+    \def\upi{\pi}
+    \def\umu{\mu}
+    \def\upartial{\partial}
+  \fi
+\fi
+
+\long\def\boxit#1{\noindent\ignorespaces
+  \framebox[\hsize][l]{\hbox{\vbox{\raggedright #1\par}}}\par
+  \medskip\noindent\ignorespaces
+} % for guide only
+
+
+\title[Monthly Notices: \LaTeX\ guide for authors]
+  {Monthly Notices of the Royal Astronomical 
+  Society: \\ \LaTeX\ style guide for authors}
+\author[A. Woollatt et al.]
+  {A.~Woollatt,$^1$\thanks{Affiliated to ICRA.} 
+  M.~Reed,$^1$ R.~Mulvey,$^1$ K.~Matthews,$^1$ 
+  D.~Starling,$^1$ Y.~Yu,$^1$
+  \newauthor % starts a new line in the 
+             % author environment
+  A.~Richardson$^1$ and P.~Smith$^2$\\
+  $^1$Cambridge University Press, Shaftesbury
+      Road, Cambridge CB2 2BS\\
+  $^2$Blackwell Science,
+      23 Ainslie Place, Edinburgh EH3 6AJ}
+\date{Accepted 1993 December 11. Received 1993 March 17}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\pubyear{1994}
+
+\def\LaTeX{L\kern-.36em\raise.3ex\hbox{a}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\begin{document}
+
+\label{firstpage}
+
+\maketitle
+
+\begin{abstract}
+ This guide is for authors who are preparing papers for the
+ Monthly Notices of the Royal Astronomical Society using the
+\LaTeX\ document preparation system and the MN style file.
+\end{abstract}
+
+\begin{keywords}
+ \LaTeX\ -- style files: \verb"mn.sty"\ -- sample text -- user guide.
+\end{keywords}
+
+\section{Introduction}
+
+In addition to the standard submission of hardcopy from authors,
+Monthly Notices accepts machine-readable forms of papers in \LaTeX.
+The layout design for Monthly Notices has been implemented as a
+\LaTeX\ style file. The MN style is based on the \verb"ARTICLE" style
+as discussed in the \LaTeX\ manual \cite {la}. Commands which differ
+from the standard \LaTeX\ interface, or which are provided in addition
+to the standard interface, are explained in this guide. This guide is
+not a substitute for the \LaTeX\ manual itself. Authors planning to
+submit their papers in \LaTeX\ are advised to use \verb"mn.sty" as
+early as possible in the creation of their files.
+
+\subsection{The MN document style}
+
+The use of \LaTeX\ document styles allows a simple change of style
+(or style option) to transform the appearance of your document. The
+MN style file preserves the standard \LaTeX\ interface such that any
+document that can be produced using the standard \LaTeX\ \verb"ARTICLE"
+style can also be produced with the MN style. However, the measure (or
+width of text) is narrower than the default for \verb"ARTICLE", and even
+narrower than for the \verb"A4" style, therefore line breaks will change
+and long equations may need re-setting. 
+
+When your article is printed in the Monthly Notices journal, it is typeset
+in Monotype Times. As most authors do not have this font, it is likely that
+the make-up will change with the change of font. For this reason, we ask
+you to ignore details such as slightly long lines, page stretching, or
+figures falling out of synchronization, because these details can be dealt with at a later stage.
+
+\subsection{General style issues}
+
+For general style issues, authors are referred to the `Instructions for
+ Authors' on the inside back cover of Monthly Notices. Authors
+who are interested in the details of style are referred to Butcher
+\shortcite {bu} and The Chicago Manual \shortcite {ch}. The language of
+the journal is British English and spelling should conform to this.
+
+Use should be made of symbolic references (\verb"\ref") in order to
+protect against late changes of order, etc.
+
+\subsection{Submission of \LaTeX\ articles to the journal}
+
+Authors are urged to state that electronic submission is intended when
+first submitting their paper.
+Papers should initially be submitted in the usual way to the Executive
+Secretary, Royal Astronomical Society, Burlington House, London W1V 0NL,
+as set out on the inside front cover of
+each issue of Monthly Notices. Three hard copies should be supplied.
+One of these copies should
+be single-sided and double-spaced throughout, while the other two should
+be weight-reduced, by being either single-spaced or double-sided. Note
+that articles, or revised versions thereof, may not be submitted by
+electronic mail. Appropriate gaps should be left for figures, original
+versions and copies of which should also be supplied. Authors should
+ensure that their figures are suitable (in terms of lettering size, etc.)
+for the reductions they intend.
+
+Authors who wish to include PostScript artwork dir\-ectly into their
+articles can do so, by using either Tomas Rokicki's {\sf EPSF} macros
+or Trevor Darrell's {\sf PSFIG} macros (both of which are supplied with
+the DVIPS PostScript driver). Please remember to supply any additional
+figure macros you use with your article.
+Please also supply hard copies of your figures, for the use of production
+editors and as a back-up.
+Authors should not attempt to
+use implementation specific \verb"\special"'s directly.
+
+The correct Monthly Notices House Style should be used -- details are
+given in the Instructions for Authors, in the Style Guide published
+in the 1 January 1993 issue (\hbox{MNRAS}, 260, 1), and in Appendix~C of
+this guide. No disk should be submitted
+at this initial stage. When the paper has been accepted, the double-spaced
+copy will be marked up by sub-editors at Blackwell Science
+(BS) and returned to you for correction. When the requested corrections
+have been made, you should send the following to BS:
+%
+\begin{enumerate}
+\item a 3.5-inch or 5.25-inch PC disk (double- or high-density or
+  Apple Mac), containing the {\em corrected\/} version of the paper,
+  plus any macro files you have been using. The files for the final 
+  version should be text-only, with no system-dependent control codes 
+  (often called an ASCII file);
+\item two hard copies of the corrected version, plus the original marked
+  copy of the article; {\em any further author corrections should be
+  clearly indicated on the latter\/};
+\item a signed statement that the revised copy and the disk do indeed
+  correspond.
+\end{enumerate}
+%
+In addition, you should submit the following information concerning the
+disk and its contents:
+%
+\begin{enumerate}
+\item the disk format (e.g. IBM 360k);
+\item how many files the disk contains, their names,
+  a description of the file contents and the number of pages each file
+  will produce when printed; details of any user-defined macros;
+\item the computer system and implementation of \LaTeX\ used (e.g.
+  IBM AT, PC\TeX\ v3.0).
+\end{enumerate}
+%
+Ensure that any author-defined macros are gathered together in the file,
+just before the \verb"\begin{document}" command. 
+
+Unless the layout of the paper has to be significantly changed by the
+typesetter (for example, if the gaps left for the figures are not
+suitable), it will not be necessary to send you a typeset proof to check,
+as the paper will be set directly from your submitted disk. However, you
+should note that, if serious problems are encountered with the coding of
+your paper (missing author-defined macros, for example), it may prove
+necessary to divert the paper to conventional typesetting.
+
+\section{Using the MN style}
+
+If the file \verb"mn.sty" is not already in the appropriate system
+directory for \LaTeX\ files, either arrange for it to be put there,
+or copy it to your working directory. The MN document style is implemented
+as a complete document style, {\em not\/} a document style option. In
+order to use the MN style, replace \verb"article" by \verb"mn" in the
+\verb"\documentstyle" command at the beginning of your document:
+%
+\begin{verbatim}
+\documentstyle{article}
+\end{verbatim}
+%
+is replaced by
+%
+\begin{verbatim}
+\documentstyle{mn}
+\end{verbatim}
+%
+In general, the following standard document style options should {\em
+not\/} be used with the MN style:
+%
+\begin{enumerate}
+  \item {\tt 10pt}, {\tt 11pt}, {\tt 12pt} -- unavailable;
+  \item {\tt twoside} (no associated style file) -- {\tt
+     twoside} is the default;
+  \item {\tt fleqn}, {\tt leqno}, {\tt titlepage} --
+        should not be used (\verb"fleqn" is already incorporated into
+        the MN style);
+  \item {\tt twocolumn} -- is not necessary as it is the default style.
+\end{enumerate}
+%
+If necessary, {\tt draft}, {\tt proc}, {\tt ifthen} and {\tt bezier} can be used.
+
+The MN style file has been designed to operate with the standard version
+of \verb"lfonts.tex" that is distributed as part of \LaTeX. If you have
+access to the source file for this guide, \verb"mnguide.tex", and to the
+specimen article, \verb"mnsample.tex", attempt to typeset both of these.
+If you find font problems you might investigate whether a non-standard
+version of \verb"lfonts.tex" has been installed in your system.
+
+\subsection{Additional document style options}
+
+The following additional style options are available with the MN style:
+\begin{description}
+  \item {\tt onecolumn} -- to be used {\it only} when two-column output
+        is unable to accommodate long equations;
+  \item {\tt landscape} -- for producing wide figures and tables which
+        need to be included in landscape format (i.e.\ sideways) rather
+        than portrait (i.e.\ upright). This option is described below. 
+  \item {\tt doublespacing} -- this will double-space your 
+        article by setting \verb"\baselinestretch" to 2.
+  \item {\tt referee} -- 12/20pt text size, single column,
+        measure 16.45cm, left margin 2.75cm on A4 page.
+  \item {\tt galley} -- no running heads, no attempt to align
+        the bottom of columns.
+\end{description}
+
+\subsection{Landscape pages}
+
+If a table or illustration is too wide to fit the standard measure, it
+must be turned, with its caption, through 90 degrees anticlockwise. 
+Landscape illustrations and/or tables cannot be produced directly
+using the MN style file because \TeX\ itself cannot turn the
+page, and not all device drivers provide such a facility.
+The following procedure can be used to produce such pages.
+%
+\begin{enumerate}
+  \item Use the \verb"table*" or \verb"figure*" environments in your
+        document to create the space for your table or figure on the
+        appropriate page of your document. Include an empty 
+        caption in this environment to ensure the correct
+        numbering of subsequent tables and figures. For instance, the 
+        following code prints a page with the running head, a message
+        half way down and the figure number towards the bottom. If you 
+        are including a plate, the running headline is different, and you
+        need to key in the three lines that are marked with \verb"% **",
+        with an appropriate headline.
+%
+\begin{verbatim}
+% ** \clearpage 
+% ** \thispagestyle{plate}
+% ** \plate{Opposite p.~812, MNRAS, {\bf 261}}
+\begin{figure*}
+  \vbox to220mm{\vfil Landscape figure to go here.
+  \caption{}
+ \vfil}
+ \label{landfig}
+\end{figure*}
+\end{verbatim}
+%
+\item Create a separate document with the corresponding document style
+      but also with the \verb"landscape" document style option, and 
+      include the \verb"\pagestyle" command, as follows:
+%
+\begin{verbatim}
+\documentstyle[landscape]{mn}
+\pagestyle{empty}
+\end{verbatim}
+%
+  \item Include your complete tables and illustrations (or space for
+        these) with captions using the \verb"table*" and \verb"figure*"
+        environments.  
+  \item Before each float environment, use the 
+        \verb"\setcounter" command to ensure the correct numbering of 
+        the caption. For example,
+%
+\begin{verbatim}
+\setcounter{table}{0}
+\begin{table*}
+ \begin{minipage}{115mm}
+ \caption{The Largest Optical Telescopes.}
+ \label{tab1}
+ \begin{tabular}{@{}llllcll}
+   :
+ \end{tabular}
+ \end{minipage}
+\end{table*}
+\end{verbatim}
+%
+The corresponding example for a figure would be:
+%
+\begin{verbatim}
+\clearpage
+\setcounter{figure}{12}
+\begin{figure*}
+ \vspace{144mm}
+ \caption{Chart for a cold plasma.}
+ \label{fig13}
+\end{figure*}
+\end{verbatim}
+\end{enumerate}
+
+
+\section{Additional facilities}
+
+In addition to all the standard \LaTeX\ design elements, the MN style
+includes the following features.
+%
+\begin{enumerate}
+  \item Extended commands for specifying a short version of the title and
+        author(s) for the running headlines.
+  \item A \verb"keywords" environment and a \verb"\nokeywords" command.
+  \item Use of the \verb"description" environment for unnumbered lists.
+  \item A \verb"\contcaption" command to produce captions for continued
+        figures or tables.
+ \end{enumerate}
+%
+In general, once you have used the additional \verb"mn.sty" facilities
+in your document, do not process it with a standard \LaTeX\ style file.
+
+\subsection{Titles and author's name}
+
+In the MN style, the title of the article and the author's name (or
+authors' names) are used both at the beginning of the article for the
+main title and throughout the article as running headlines at the top
+of every page. The title is used on odd-numbered pages (rectos) and the
+author's name appears on even-numbered pages (versos). Although the
+main heading can run to several lines of text, the running headline
+must be a single line ($\le 45$ characters). Moreover, the main
+heading can also incorporate new line commands (e.g. \verb"\\") but
+these are not acceptable in a running headline. To enable you to
+specify an alternative short title and an alternative short author's
+name, the standard \verb"\title" and \verb"\author" commands have been
+extended to take an optional argument to be used as the running
+headline. The running headlines for this guide were produced using the
+following code:
+%
+\begin{verbatim}
+\title[Monthly Notices: \LaTeX\ guide for authors]
+  {Monthly Notices of the Royal Astronomical 
+  Society: \\ \LaTeX\ style guide for authors}
+\end{verbatim}
+%
+and
+%
+\begin{verbatim}
+\author[A. Woollatt et al.]
+  {A.~Woollatt,$^1$\thanks{Affiliated to ICRA.} 
+  M.~Reed,$^1$ R.~Mulvey,$^1$ K.~Matthews,$^1$ 
+  D.~Starling,$^1$ Y.~Yu,$^1$
+  \newauthor % starts a new line in the 
+             % author environment
+  A.~Richardson$^1$ and P.~Smith$^2$\\
+  $^1$Cambridge University Press, Shaftesbury
+      Road, Cambridge CB2 2BS\\
+  $^2$Blackwell Science,
+      23 Ainslie Place, Edinburgh EH3 6AJ}
+\end{verbatim}
+%
+The \verb"\thanks" note produces a footnote to the title or author.
+
+\subsection{Key words and abstracts}
+
+At the beginning of your article, the title should be generated in the
+usual way using the \verb"\maketitle" command. Immediately following
+the title you should include an abstract followed by a list of key
+words. The abstract should be enclosed within an \verb"abstract"
+environment, followed immediately by the key words enclosed in a
+\verb"keywords" environment. For example, the titles for this guide
+were produced by the following source:
+%
+\begin{verbatim}
+\maketitle
+\begin{abstract}
+ This guide is for authors who are preparing
+ papers for the Monthly Notices of the
+ Royal  Astronomical Society using the \LaTeX\
+ document preparation system and the MN style
+ file.
+\end{abstract}
+\begin{keywords}
+ \LaTeX\ -- style files: \verb"mn.sty"\ --
+ sample text -- user guide.
+\end{keywords}
+
+\section{Introduction}
+  :
+\end{verbatim}
+%
+The heading `{\bf Key words}' is included automatically and the key
+words are followed by vertical space. If, for any reason, there are no
+key words, you should insert the \verb"\nokeywords" command immediately
+after the end of the \verb"abstract" environment. This ensures that the
+vertical space after the abstract and/or title is correct and that any
+\verb"thanks" acknowledgments are correctly included at the bottom of
+the first column. For example,
+%
+\begin{verbatim}
+\maketitle
+\begin{abstract}
+  :
+\end{abstract}
+\nokeywords
+
+\section{Introduction}
+  :
+\end{verbatim}
+
+\subsection{Lists}
+
+The MN style provides numbered lists using the \verb"enumerate"
+environment and unnumbered lists using the \verb"description"
+environment with an empty label. Bulleted lists are not part of the MN
+style and the \verb"itemize" environment should not be used.
+
+The enumerated list numbers each list item with roman numerals:
+%
+\begin{enumerate}
+  \item first item
+  \item second item
+  \item third item
+\end{enumerate}
+%
+Alternative numbering styles can be achieved by inserting a
+redefinition of the number labelling command after the
+\verb"\begin{enumerate}". For example, the list
+%
+\begin{enumerate}
+\renewcommand{\theenumi}{(\arabic{enumi})}
+  \item first item
+  \item second item
+  \item etc\ldots
+\end{enumerate}
+%
+was produced by:
+%
+\begin{verbatim}
+\begin{enumerate}
+ \renewcommand{\theenumi}{(\arabic{enumi})}
+  \item first item
+       :
+\end{enumerate}
+\end{verbatim}
+%
+Unnumbered lists are provided using the \verb"description" environment.
+For example,
+\begin{description}
+  \item First unnumbered item which has no label and is indented from
+        the left margin.
+  \item Second unnumbered item.
+  \item Third unnumbered item.
+\end{description}
+was produced by:
+%
+\begin{verbatim}
+\begin{description}
+ \item First unnumbered item...
+ \item Second unnumbered item.
+ \item Third unnumbered item.
+\end{description}
+\end{verbatim}
+
+\subsection{Captions for continued figures and tables}\label{contfigtab}
+
+The \verb"\contcaption" command may be used to produce a caption with the
+same number as the previous caption (for the corresponding type of
+float). For instance, if a very large table does not fit on one page,
+it must be split into two floats; the second float should use the
+\verb"\contcaption" command:
+%
+\begin{verbatim}
+\begin{table}
+ \contcaption{}
+  \begin{tabular}{@{}lccll}
+  :
+  \end{tabular}
+\end{table}
+\end{verbatim}
+
+
+\section[]{Some guidelines for using\\* standard facilities}
+
+The following notes may help you achieve the best effects with the MN
+style file.
+
+\subsection{Sections}
+
+\LaTeX\ provides five levels of section headings and they are all
+defined in the MN style file:
+\begin{description}
+  \item \verb"\section"
+  \item \verb"\subsection"
+  \item \verb"\subsubsection"
+  \item \verb"\paragraph"
+  \item \verb"\subparagraph"
+\end{description}
+Section numbers are given for section, subsection, subsubsection
+and paragraph headings.  Section headings are automatically converted to
+upper case; if you need any other style, see the example in Section~\ref{headings}.
+
+If you find your section/subsection (etc.)\ headings are wrapping round, 
+you must use the \verb"\\*" to end individual lines and include the 
+optional argument \verb"[]" in the section command. This ensures that 
+the turnover is flushleft.
+
+\subsection{Illustrations (or figures)}
+
+The MN style will cope with most positioning of your illustrations and
+you should not normally use the optional positional qualifiers on the
+\verb"figure" environment which would override these decisions. See
+`Instructions for Authors' in Monthly Notices for submission of
+artwork. Figure captions should be below the figure itself, therefore
+the \verb"\caption" command should appear after the figure or space
+left for an illustration. For example, Fig.~\ref{sample-figure} is
+produced using the following commands:
+%
+\begin{verbatim}
+\begin{figure}
+ \vspace{5.5cm}
+ \caption{An example figure in which space has
+          been left for the artwork.}
+ \label{sample-figure}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}
+  \vspace{5.5cm}
+  \caption{An example figure in which space has been
+           left for the artwork.}
+  \label{sample-figure}
+\end{figure}
+
+\subsection{Tables}
+
+The MN style will cope with most positioning of your tables and you
+should not normally use the optional positional qualifiers on the
+\verb"table" environment which would override these decisions. Table
+captions should be at the top, therefore the \verb"\caption" command
+should appear before the body of the table. 
+
+The \verb"tabular" environment can be used to produce tables with
+single horizontal rules, which are allowed, if desired, at the head and
+foot only. This environment has been modified for the MN style in the
+following ways:
+%
+\begin{enumerate}
+  \item additional vertical space is inserted on either side of a rule;
+  \item vertical lines are not produced.
+\end{enumerate}
+%
+Commands to redefine quantities such as \verb"\arraystretch" should be
+omitted. For example, Table~\ref{symbols} is produced using the
+following commands. Note that \verb"\rmn" will produce a roman character 
+in math mode. It has been defined in two ways in the source code of
+the guide, one way for authors using the New Font Selection Scheme, and 
+the other for authors using the old font selection scheme. There are
+also \verb"\bld" and \verb"\itl", which produce bold face and text italic
+in math mode.
+\begin{table}
+ \caption{Radio-band beaming model parameters 
+          for FSRQs and BL Lacs.}
+ \label{symbols}
+ \begin{tabular}{@{}lcccccc}
+  Class & $\gamma _1$ & $\gamma _2$ 
+        & $\langle \gamma \rangle$
+        & $G$ & $f$ & $\theta _{\rmn{c}}$ \\
+  BL Lacs &5 & 36 & 7 & $-4.0$ 
+        & $1.0\times 10^{-2}$ & 10$^\circ$ \\
+  FSRQs & 5 & 40 & 11 & $-2.3$ 
+        & $0.5\times 10^{-2}$ & 14$^\circ$ \\
+ \end{tabular}
+
+ \medskip
+ {\em G} is the slope of the Lorentz factor distribution, i.e.
+ $n(\gamma)\propto \gamma ^G$, extending between $\gamma _1$ and
+ $\gamma_2$, with mean value $\langle \gamma \rangle$, {\em f\/} is the
+ ratio between the intrinsic jet luminosity and the extended, unbeamed
+ luminosity, while $\theta_{\rmn{c}}$ is the critical angle separating
+ the beamed class from the parent population.
+\end{table}
+\begin{verbatim}
+\begin{table}
+ \caption{Radio-band beaming model parameters 
+          for FSRQs and BL Lacs.}
+ \label{symbols}
+ \begin{tabular}{@{}lcccccc}
+  Class & $\gamma _1$ & $\gamma _2$ 
+        & $\langle \gamma \rangle$
+        & $G$ & $f$ & $\theta _{\rmn{c}}$ \\
+  BL Lacs &5 & 36 & 7 & $-4.0$ 
+        & $1.0\times 10^{-2}$ & 10$^\circ$ \\
+  FSRQs & 5 & 40 & 11 & $-2.3$ 
+        & $0.5\times 10^{-2}$ & 14$^\circ$ \\
+ \end{tabular}
+
+ \medskip
+ {\em G} is the slope of the Lorentz factor 
+   :
+ class from the parent population.
+\end{table}
+\end{verbatim}
+%
+If you have a table that is to extend over two columns, you need to use
+\verb"table*" in a minipage environment, i.e., you can say
+%
+\begin{verbatim}
+\begin{table*}
+\begin{minipage}{80mm}
+ \caption{Caption which will wrap round to the
+          width of the minipage environment.}
+ \begin{tabular}{%
+      :
+ \end{tabular}
+\end{minipage}
+\end{table*}
+\end{verbatim}
+%
+The width of the minipage should more or less be the width of your table,
+so you can only guess on a value on the first pass. The value will have to 
+be adjusted when your article is typeset in Times, so don't worry about
+making it the exact size.
+
+\subsection{Running headlines}
+
+As described above, the title of the article and the author's name (or
+authors' names) are used as running headlines at the top of every page.
+The headline on left-hand pages can list up to three names; for more than
+three use et~al. The \verb"\pagestyle" and \verb"\thispagestyle"
+commands should {\em not\/} be used. Similarly, the commands
+\verb"\markright" and \verb"\markboth" should not be necessary.
+
+
+\subsection[]{Typesetting mathematics}\label{TMth}
+
+\subsubsection{Displayed mathematics}
+
+The MN style will set displayed mathematics flush with the left margin,
+provided that you use the \LaTeX\ standard of open and closed square
+brackets as delimiters. The equation
+\[
+ \sum_{i=1}^p \lambda_i = \rmn{trace}(\bld{S})
+\]
+was typeset in the MN style using the commands
+%
+\begin{verbatim}
+\[
+ \sum_{i=1}^p \lambda_i = \rmn{trace}(\bld{S})
+\]
+\end{verbatim}
+%
+Note the difference between the positioning of this equation and of
+the following centred equation,
+$$ \alpha_{j+1} > \bar{\alpha}+ks_{\alpha} $$
+which was (wrongly) typeset using double dollars as follows:
+%
+\begin{verbatim}
+$$ \alpha_{j+1} > \bar{\alpha}+ks_{\alpha} $$
+\end{verbatim}
+
+
+\subsubsection{Bold math italic / bold symbols}
+
+To get bold math italic you can use \verb"\boldmath" (which only works for
+the `normal' size), but in many implementations of \LaTeX\ this has not
+been defined at 9pt. An alternative is to use \verb"\bmath" which works
+for all sizes. e.g.
+%
+\begin{verbatim}
+\[
+  d(\bmath{s_{t_u}}) = \langle [RM(\bmath{X_y}
+  + \bmath{s_t}) - RM(\bmath{x_y})]^2 \rangle
+\]
+\end{verbatim}
+%
+to produce:
+\[
+  d(\bmath{s_{t_u}}) = \langle [RM(\bmath{X_y}
+  + \bmath{s_t}) - RM(\bmath{x_y})]^2 \rangle
+\]
+Working this way, scriptstyle and scriptscriptstyle sizes will take care of themselves.
+
+\subsubsection{Bold Greek}\label{boldgreek}
+
+Bold lowercase Greek characters can now be obtained by prefixing
+the normal (unbold) symbol name with a `b', e.g.\ \verb"\bgamma" gives
+$\bgamma$. This rule does not apply to bold \verb"\eta", as this would lead
+to a name clash with \verb"\beta". Instead use \verb"\boldeta" for bold eta.
+Note that there is no \verb"\omicron" (so there is no \verb"\bomicron"),
+just use `o' in math mode for omicron ($o$) and `\verb"\bmath{o}"' for bold omicron ($\bmath{o}$).
+
+For bold uppercase Greek, prefix the unbold character name with
+\ifoldfss
+%
+\verb"\bf", e.g.\ \verb"\bf\Gamma" gives $\bf\Gamma$.
+%
+\else
+%
+\verb"\mathbf", e.g.\ \verb"\mathbf\Gamma" gives $\mathbf\Gamma$.
+%
+\fi
+Upper and lowercase Greek characters are available in all typesizes.
+
+You can then use these definitions in math mode, as you would normal Greek
+characters:
+%
+\ifoldfss
+%
+\begin{verbatim}
+\[
+  \balpha_{\bmu} = {\bf\Theta} \alpha.
+\]
+\end{verbatim}
+%
+\else
+%
+\begin{verbatim}
+\[
+  \balpha_{\bmu} = \mathbf{\Theta} \alpha.
+\]
+\end{verbatim}
+%
+\fi
+%
+will produce
+%
+\ifoldfss
+%
+\[
+  \balpha_{\bmu} = {\bf\Theta} \alpha.
+\]
+%
+\else
+%
+\[
+  \balpha_{\bmu} = \mathbf{\Theta} \alpha.
+\]
+%
+\fi
+
+\subsubsection{Upright Greek characters}\label{upgreek}
+
+You can obtain upright Greek characters if you have access to the
+American Maths Society Euler fonts (version 2.0), but you may not
+have these. In this case, you will have to use the normal math italic
+symbols and the typesetter will substitute the corresponding upright
+characters. You will make this easier if you can use the macros \verb|\upi|,
+\verb|\umu| and \verb|\upartial| etc.\ in your text to indicate the need for upright characters, together with the following definitions in the preamble
+(before \verb|\begin{document}|):
+
+\subsubsection*{Authors with AMS fonts}
+
+\ifoldfss
+%
+\begin{verbatim}
+\ifCUPmtlplainloaded \else
+  \NewSymbolFont{upmath} {eurm10}
+  \NewMathSymbol{\upi}     {0}{upmath}{19}
+  \NewMathSymbol{\umu}     {0}{upmath}{16}
+  \NewMathSymbol{\upartial}{0}{upmath}{40}
+\fi
+\end{verbatim}
+%
+\fi
+
+\ifnfssone
+%
+\begin{verbatim}
+\ifCUPmtlplainloaded \else
+  \makeatletter
+  \new@mathgroup\upmath@group
+  \define@mathgroup\mv@normal\upmath@group{eur}{m}{n}
+  \define@mathgroup\mv@bold\upmath@group{eur}{b}{n}
+  \edef\UPM{\hexnumber\upmath@group}
+  \makeatother
+  \mathchardef\upi="0\UPM19
+  \mathchardef\umu="0\UPM16
+  \mathchardef\upartial="0\UPM40
+\fi
+\end{verbatim}
+%
+\fi
+
+\ifnfsstwo
+%
+\begin{verbatim}
+\ifCUPmtlplainloaded \else
+  \DeclareSymbolFont{UPM}{U}{eur}{m}{n}
+  \SetSymbolFont{UPM}{bold}{U}{eur}{b}{n}
+  \DeclareMathSymbol{\upi}{0}{UPM}{"19}
+  \DeclareMathSymbol{\umu}{0}{UPM}{"16}
+  \DeclareMathSymbol{\upartial}{0}{UPM}{"40}
+\fi
+\end{verbatim}
+%
+\fi
+
+\subsubsection*{Authors without AMS fonts}
+
+\begin{verbatim}
+\ifCUPmtlplainloaded \else
+  \def\umu{\mu}
+  \def\upi{\pi}
+  \def\upartial{\partial}
+\fi
+\end{verbatim}
+Wether you have AMS fonts or not, the \verb|\if..| and \verb|\fi| are
+required in the above examples to ensure that when your article is
+typeset in Monotype Times, the correct definitions for these symbols
+are used.
+
+The sample pages and guide can be made to use AMS fonts if you have them.
+To use them, just uncomment the following line in the preamble
+of \verb|mnguide.tex| and \verb|mnsample.tex|:
+%
+\begin{verbatim}
+%\AMStwofontstrue
+\end{verbatim}
+%
+If you do this, the following upright symbols are used in the
+sample pages and guide: \verb|\upi|, \verb|\umu| and \verb|\upartial|.
+
+
+\subsubsection{Special symbols}\label{SVsymbols}
+
+The macros for the special symbols in Tables~\ref{mathmode} and~\ref{anymode}
+have been taken from the Springer Verlag `Astronomy and Astrophysics' 
+design, with their permission. They are directly compatible and use the 
+same macro names.
+These symbols will work in all text sizes, but are only guaranteed to work
+in text and displaystyles. Some of the symbols will not get any smaller when
+they are used in sub- or superscripts, and will therefore be displayed at the
+wrong size. Don't worry about this as the typesetter will be able to sort
+this out.
+%
+\begin{table*}
+\begin{minipage}{110mm}
+\caption{Special symbols which can only be used in math mode.}
+\label{mathmode}
+\begin{tabular}{@{}llllll}
+Input & Explanation & Output & Input & Explanation & Output\\
+\hline
+\verb"\la"     & less or approx       & $\la$     &
+  \verb"\ga"     & greater or approx    & $\ga$\\[2pt]
+\verb"\getsto" & gets over to         & $\getsto$ &
+  \verb"\cor"    & corresponds to       & $\cor$\\[2pt]
+\verb"\lid"    & less or equal        & $\lid$    &
+  \verb"\gid"    & greater or equal     & $\gid$\\[2pt]
+\verb"\sol"    & similar over less    & $\sol$    &
+  \verb"\sog"    & similar over greater & $\sog$\\[2pt]
+\verb"\lse"    & less over simeq      & $\lse$    &
+  \verb"\gse"    & greater over simeq   & $\gse$\\[2pt]
+\verb"\grole"  & greater over less    & $\grole$  &
+  \verb"\leogr"  & less over greater    & $\leogr$\\[2pt]
+\verb"\loa"    & less over approx     & $\loa$    &
+  \verb"\goa"    & greater over approx  & $\goa$\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table*}
+%
+\begin{table*}
+\begin{minipage}{120mm}
+\caption{Special symbols which don't have to be
+used in math mode.}
+\label{anymode}
+\begin{tabular}{@{}llllll}
+Input & Explanation & Output & Input & Explanation & Output\\
+\hline
+\verb"\sun"      & sun symbol            & $\sun$     &
+  \verb"\degr"     & degree                & $\degr$\\[2pt]
+\verb"\diameter" & diameter              & \diameter  &
+  \verb"\sq"       & square                & \squareforqed\\[2pt]
+\verb"\fd"       & fraction of day       & \fd        &
+  \verb"\fh"       & fraction of hour      & \fh\\[2pt]
+\verb"\fm"       & fraction of minute    & \fm        &
+  \verb"\fs"       & fraction of second    & \fs\\[2pt]
+\verb"\fdg"      & fraction of degree    & \fdg       &
+  \verb"\fp"       & fraction of period    & \fp\\[2pt]
+\verb"\farcs"    & fraction of arcsecond & \farcs     &
+  \verb"\farcm"    & fraction of arcmin    & \farcm\\[2pt]
+\verb"\arcsec"   & arcsecond             & \arcsec    &
+  \verb"\arcmin"   & arcminute             & \arcmin\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table*}
+
+\subsection{Bibliography}
+
+References to published literature should be quoted in text by author
+and date: e.g. Draine (1978) or (Begelman, Blandford \& Rees 1984).
+Where more than one reference is cited having the same author(s) and date,
+the letters a,b,c, \ldots\ should follow the date; e.g.\ Smith (1988a),
+Smith (1988b), etc. 
+
+\subsubsection{References in the text}
+
+References in the text are given by author and date, and, whichever
+method is used to produce the bibliography, the references in the text
+are done in the same way. Each bibliographical entry has a key, which
+is assigned by the author and used to refer to that entry in the text.
+There is one form of citation -- \verb"\cite{key}" -- to produce the
+author and date, and another form -- \verb"\shortcite{key}" -- which
+produces the date only. Thus, Stella \& Campana \shortcite{sc} is
+produced by
+%
+\begin{verbatim}
+Stella \& Campana \shortcite{sc}
+\end{verbatim}
+%
+while \cite{mtw} is produced by
+%
+\begin{verbatim}
+\cite{mtw}
+\end{verbatim}
+%
+When you introduce a three-author paper, you should list all
+three authors at the first citation, and thereafter use et al.
+
+\subsubsection{The list of references}
+
+The following listing shows some references prepared in the style of
+the journal; the code produces the references at the end of this guide.
+The following rules apply for the ordering of your references:
+%
+\begin{enumerate}
+  \item if an author has written several papers, some with other authors, 
+        the rule is that the single-author papers precede the two-author
+        papers, which, in turn, precede the multi-author papers;
+  \item within the two-author paper citations, the order is determined
+        by the second author's surname, regardless of date;
+  \item within the multi-author paper citations, the order is
+        chronological, regardless of authors' surnames.
+\end{enumerate}
+%
+\begin{verbatim}
+\begin{thebibliography}{}
+  \bibitem[\protect\citename{Butcher }1992]{bu}
+    Butcher J., 1992, Copy-editing: The Cambridge 
+    Handbook, 3rd edn. Cambridge Univ. Press, 
+    Cambridge
+  \bibitem[\protect\citename{The Chicago Manual }%
+    1982]{ch} The Chicago Manual of Style, 1982.
+    Univ. Chicago Press, Chicago
+  \bibitem[\protect\citename{Blanco }1991]{bl}
+    Blanco P., 1991, PhD thesis, Edinburgh
+    University
+  \bibitem[\protect\citename{Brown \& Jones }%
+    1989]{bj} Brown A. B., Jones C. D., 1989, 
+    in Robinson E. F., Smith G. H., eds,
+    Proc. IAU Symp. 345, Black Dwarfs. 
+    Kluwer, Dordrecht, p. 210
+  \bibitem[\protect\citename{Edelson }1987]{ed}
+    Edelson R. A., 1987, ApJ, 313, 651
+  \bibitem[\protect\citename{Lamport }1986]{la}
+    Lamport L., 1986, \LaTeX: A Document 
+    Preparation System. Addison--Wesley, New York
+  \bibitem[\protect\citename{Mirabel \& Sanders }%
+    1989]{ms} Mirabel I. F., Sanders D. B., 1989, 
+    ApJ, 340, L53 
+  \bibitem[\protect\citename{Misner et al.\ }%
+    1973]{mtw} Misner C. W., Thorne K. S., 
+    Wheeler J. A., 1973, Gravitation. 
+    Freeman, San Francisco
+  \bibitem[\protect\citename{Sopp \& Alexander }%
+    1991]{sa} Sopp H. M., Alexander P., 1991, 
+    MNRAS, 251, 112
+  \bibitem[\protect\citename{Stella \& Campana }%
+    1991]{sc} Stella L., Campana S., 1991, in 
+    Treves A., Perola G. C., Stella L., eds, 
+    Iron Line Diagnostic in X-ray Sources. 
+    Springer--Verlag, Berlin, p. 230
+\end{thebibliography}
+\end{verbatim}
+%
+Each entry takes the form
+%
+\begin{verbatim}
+\bibitem[\protect\citename{Author(s), }%
+  Date]{tag} Bibliography entry
+\end{verbatim}
+%
+where \verb"Author(s)" should be the author names as they are cited in
+the text, \verb"Date" is the date to be cited in the text, and
+\verb"tag" is the tag that is to be used as an argument for the
+\verb"\cite{}" and \verb"\shortcite{}" commands. \verb"Bibliography
+entry" should be the material that is to appear in the bibliography,
+suitably formatted.
+
+\subsection{Appendices}
+
+The appendices in this guide were generated by typing:
+%
+\begin{verbatim}
+\appendix
+\section{For authors}
+     :
+\section{For editors}
+\end{verbatim}
+%
+You only need to type \verb"\appendix" once. Thereafter, every
+\verb"\section" command will generate a new appendix which will be 
+numbered A, B, etc. 
+
+
+\section[]{Example of section heading with\\*
+  S{\sevensize\bf MALL} C{\sevensize\bf APS},
+  \lowercase{lowercase}, \textbfit{italic},
+  and bold\\* Greek such as
+  $\bmu^{\bkappa}$}\label{headings}
+
+\ifoldfss
+%
+There are at least two ways of achieving this section head. The first
+involves the use of \verb"\boldmath". You could say:
+%
+\begin{verbatim}
+\section[]{Example of section heading with\\*
+  S{\sevensize\bf MALL} C{\sevensize\bf APS},
+  \lowercase{lowercase}, \textbfit{italic},
+  and bold\\* Greek such as
+  \mbox{\boldmath{$\mu^{\kappa}$}}}
+\end{verbatim}
+%
+Many implementations of \LaTeX\ do not support \verb"\boldmath" at 9pt,
+so you may need to use the bold Greek characters as described in
+Section~\ref{boldgreek}, and typeset the section head as follows:
+%
+\begin{verbatim}
+\section[]{Example of section heading with\\*
+  S{\sevensize\bf MALL} C{\sevensize\bf APS},
+  \lowercase{lowercase}, \textbfit{italic},
+  and bold\\* Greek such as
+  $\bmu^{\bkappa}$}
+\end{verbatim}
+%
+\else % nfss
+%
+Was produced with:
+%
+\begin{verbatim}
+\section[]{Example of section heading with\\*
+  S{\sevensize MALL} C{\sevensize APS},
+  \lowercase{lowercase}, \textbfit{italic},
+  and bold\\* Greek such as
+  $\bmu^{\bkappa}$}
+\end{verbatim}
+%
+\fi
+
+\begin{thebibliography}{}
+  \bibitem[\protect\citename{Butcher }1992]{bu}
+    Butcher J., 1992, Copy-editing: The Cambridge 
+    Handbook, 3rd edn. Cambridge Univ. Press, 
+    Cambridge
+  \bibitem[\protect\citename{The Chicago Manual }%
+    1982]{ch} The Chicago Manual of Style 1982. Univ.
+    Chicago Press, Chicago
+  \bibitem[\protect\citename{Blanco }1991]{bl}
+    Blanco P., 1991, PhD thesis, Edinburgh 
+    University
+  \bibitem[\protect\citename{Brown \& Jones }%
+    1989]{bj} Brown A. B., Jones C. D., 1989, 
+    in Robinson E. F., Smith G. H., eds,
+    Proc. IAU Symp. 345, Black Dwarfs. 
+    Kluwer, Dordrecht, p. 210
+  \bibitem[\protect\citename{Edelson }1987]{ed}
+    Edelson R. A., 1987, ApJ, 313, 651
+  \bibitem[\protect\citename{Lamport }1986]{la}
+    Lamport L., 1986, \LaTeX: A Document 
+    Preparation System. Addison--Wesley, New York
+  \bibitem[\protect\citename{Mirabel \& Sanders }%
+    1989]{ms} Mirabel I. F., Sanders D. B., 1989, 
+    ApJ, 340, L53 
+  \bibitem[\protect\citename{Misner et al.\ }%
+    1973]{mtw} Misner C. W., Thorne K. S., 
+    Wheeler J. A., 1973, Gravitation. 
+    Freeman, San Francisco
+  \bibitem[\protect\citename{Sopp \& Alexander }%
+    1991]{sa} Sopp H. M., Alexander P., 1991, 
+    MNRAS, 251, 112
+  \bibitem[\protect\citename{Stella \& Campana }%
+    1991]{sc} Stella L., Campana S., 1991, in 
+    Treves A., Perola G. C., Stella L., eds, 
+    Iron Line Diagnostic in X-ray Sources. 
+    Springer--Verlag, Berlin, p. 230
+\end{thebibliography}
+
+
+\appendix
+\section{For authors}
+
+Table~\ref{authors} is a list of design macros which are unique to MN. The
+list displays each macro's name and description.
+
+\begin{table*}
+\begin{minipage}{155mm}
+\caption{Authors' notes.}
+\label{authors}
+\begin{tabular}{@{}ll}
+\verb"\title[optional short title]{long title}"
+                    & short title used in running head\\
+\verb"\author[optional short author(s)]{long author(s)}"
+                    & short author(s) used in running head\\
+\verb"\newauthor"   & starts a new line in the author environment\\
+\verb"\begin{abstract}...\end{abstract}"& for abstract on titlepage\\
+\verb"\begin{keywords}...\end{keywords}"& for keywords on titlepage\\
+\verb"\nokeywords"  & if there are no keywords on titlepage\\
+\verb"\begin{figure*}...\end{figure*}" & for a double spanning figure in two-column mode\\ 
+\verb"\begin{table*}...\end{table*}" & for a double spanning table in 
+                                       two-column mode\\ 
+\verb"\plate{Opposite p.~812, MNRAS, {\bf 261}}"
+                  & used with \verb"\thispagestyle{plate}" for plate pages\\
+\verb"\contcaption{}" & for continuation figure and table captions\\
+\verb"\bmath{math text}" & Bold math italic / symbols.\\
+\verb"\textbfit{text}", \verb"\mathbfit{text}" & Bold text italic
+   (defined in the preamble of \verb"mnsample.tex").\\
+\verb"\textbfss{text}", \verb"\mathbfss{text}" & Bold text sans serif
+   (defined in the preamble of \verb"mnsample.tex").\\
+\end{tabular}
+\end{minipage}
+\end{table*}
+
+
+\section{For editors}
+
+The additional features shown in Table~\ref{editors} may be used for
+production purposes.
+
+\begin{table*}
+\begin{minipage}{155mm}
+\caption{Editors' notes.}
+\label{editors}
+\begin{tabular}{@{}lp{270pt}}
+\verb"\pagerange{000--000}"& for catchline, note use of en-rule\\
+\verb"\pagerange{L00--L00}"& for letters option, used in catchline\\
+\verb"\volume{000}" & volume number, for catchline\\
+\verb"\pubyear{0000}" & publication year, for catchline\\
+\verb"\microfiche{MN000/0}" & for articles accompanied by microfiche\\
+\verb"\journal" & replace the whole catchline at one go\\
+\verb"[doublespacing]" & documentstyle option for doublespacing\\
+\verb"[galley]" & documentstyle option for running to galley\\
+\verb"[landscape]" & documentstyle option for landscape illustrations\\
+\verb"[letters]" & documentstyle option, for short communications 
+                   (adds L to folios)\\
+\verb"[onecolumn]" & documentstyle option for one-column \\
+\verb"[referee]" & documentstyle option for 12/20pt, single col, 
+                   39pc measure\\
+\verb"\bsp" & typesets the final phrase `This paper has been produced
+              using the\\
+            & Royal Astronomical Society/Blackwell Science \LaTeX\ style
+              file.'\\
+\end{tabular}
+\end{minipage}
+\end{table*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+% define \thebiblio (same as thebibliography, but
+% without the section heading)
+\def\thebiblio#1{%
+ \list{}{\usecounter{dummy}%
+         \labelwidth\z@
+         \leftmargin 1.5em
+         \itemsep \z@
+         \itemindent-\leftmargin}
+ \reset@font\small
+ \parindent\z@
+ \parskip\z@ plus .1pt\relax
+ \def\newblock{\hskip .11em plus .33em minus .07em}
+ \sloppy\clubpenalty4000\widowpenalty4000
+ \sfcode`\.=1000\relax
+}
+\let\endthebiblio=\endlist
+\makeatother
+
+
+\section{Monthly Notices journal style}
+        
+Authors  submitting  \TeX\ or \LaTeX\ papers to Monthly  Notices  
+may wish to note the following points regarding journal style. 
+Adherence to correct style from the start will obviously save time
+and effort later on, in terms of fewer requested subeditorial 
+corrections.  The notes given here relate to common style errors found 
+in  Monthly Notices manuscripts, and are {\it not\/} intended to  be  
+exhaustive. Please see the editorials in issues 257/2 and 260/1, as 
+well as any recent issue of the journal, for more details. As far 
+as  possible, the subeditor will indicate which of  your  changes 
+would be best done globally, thus saving you time.
+        
+\subsection{Punctuation}
+
+When  deciding  where to add commas, it may be  helpful  to  read 
+through  the sentence and note where the natural `pauses'  occur. 
+The  needs  of readers for whom English is not a  first  language 
+should  be  borne in mind when punctuating  long  sentences.  For 
+example, consider the following sentence as it appeared in Monthly Notices:
+`When we do not limit ourselves by constraints arising 
+from the choice of an initial fluctuation spectrum, structures in 
+an open universe, including the peculiar velocity structure,  can 
+be  reproduced  in a flat Lema\^{\i}tre universe for a large  part  of 
+their evolution.' Now consider the same sentence without  commas: 
+`When  we do not limit ourselves by constraints arising from  the 
+choice  of an initial fluctuation spectrum structures in an  open 
+universe including the peculiar velocity structure can be  reproduced  
+in  a  flat Lema\^{\i}tre universe for a large  part  of  their 
+evolution.'
+        
+\subsection{Spelling}
+
+Please  use British spelling -- e.g.\ centre not center,  labelled 
+not  labeled. The following style regarding -ise and -ize  spellings  is
+followed.  -ise: devise,  surprise,  comprise,  revise, 
+exercise,  analyse. -ize: recognize, criticize, minimize,  emphasize, organize.
+        
+\subsection{Titles and section/subsection headings}
+
+With the exception of section headings (e.g.\
+{\bf INTRO\-DUC\-TION}\ldots),
+capital letters should be used only where they occur in a normal
+sentence -- e.g.\ 
+`\textbfit{ROSAT\/} {\bf observations of the unusual star}\ldots', not
+`\textbfit{ROSAT\/} {\bf Observations of the Unusual Star}\ldots'.
+
+\subsection{Key words}
+
+The  list of Monthly Notices key words is published with the  4th 
+issue  of each volume. No other key words should be used.  Please 
+use the correct layout for key words: 
+\smallskip        
+
+\noindent {\bf Key words:} galaxies: active -- galaxies: Seyfert -- 
+radio continuum: galaxies.
+        
+\subsection{Hyphens and N-rules}
+
+\begin{enumerate}
+\item Hyphens (one dash in \TeX/\LaTeX). Monthly Notices uses hyphens 
+for compound adjectives (e.g.\ low-density gas, least-squares fit, 
+two-component  model).  This also applies to simple  units  (e.g.\ 
+1.5-m  telescope,  284.5-nm line), but not to  complex  units  or 
+ranges,  which could become cumbersome (e.g.\ 15 km  s$^{-1}$  feature, 
+100--200 $\umu$m observations).
+
+\item N-rules (two dashes in \TeX/\LaTeX). These are used  (a)  to 
+separate  key  words, (b) as parentheses (e.g.\  `the  results  -- 
+assuming no temperature gradient -- are indicative of\ldots), (c) to 
+denote a range (e.g.\ 1.6--2.2 $\umu$m), and (d) to denote the  joining 
+of   two  words  (e.g.\  Kolmogorov--Smirnov  test,   Herbig--Haro 
+object).
+        
+\item The  M-rule (three dashes in \TeX/\LaTeX) is  not  used  in 
+Monthly Notices.
+\end{enumerate}
+
+        
+\subsection{References}
+
+It  is important to use the correct reference style,  details  of 
+which  can be found in the editorials cited above, and  which  is 
+demonstrated in any recent issue of the journal. The main  points 
+are summarized below.
+%        
+\begin{enumerate}
+\item In text -- for three-author papers, give all three  authors 
+at first mention, and `et al.' thereafter.
+
+\item In references list -- no bold or italic, no  commas  after 
+author surnames, and no ampersand between final two author names.
+Use  simplified abbreviations for frequently used journals  (e.g.\ 
+MNRAS,  ApJ,  A\&A, PASP -- see full list in  editorial  in  issue 
+260/1). List all authors if eight or less, otherwise `et al.' For 
+example,
+\end{enumerate}        
+
+\begin{thebiblio}{}% you should use {thebibliography} here.
+\bibitem{} Biggs J.D., Lyne A.G., 1992, MNRAS, 254, 257
+
+\bibitem{} Brown A.B., Jones C.D., 1989, in Robinson E.F., 
+Smith G.H.,  eds, Proc. IAU Symp. 345, Black Dwarfs. Kluwer, Dordrecht, 
+p.~210
+
+\bibitem{} Felsteiner  J.,  Opher  R., 1991, in Treves A.,  ed.,  
+Iron  Line Diagnostics in X-ray Sources. Springer-Verlag, Berlin, p.~209
+
+\bibitem{} Gunn  J.E., Knapp G., 1993, in Soifer B.T., ed., ASP  
+Conf.\ Ser.\ Vol.~43, Sky Surveys. Astron.\ Soc.\ Pac., San Francisco, p.~267
+
+\bibitem{} Peebles P.J.E., 1980, The Large-Scale Structure of the  Universe. Princeton Univ. Press, Princeton, NJ 
+
+\bibitem{} Pounds K.A. et al., 1993, MNRAS, 260, 77
+
+\bibitem{} Williams B.G., 1992, PhD thesis, Univ.\ Edinburgh 
+\end{thebiblio}
+
+\subsection{Maths}
+Scalar  variables are italic; vectors are bold  italic;  matrices 
+are  `bold Univers' font (like bold sans serif). Differential  d, 
+complex  i, exponential e, sin, cos, tan, log, etc.,  are  roman. 
+Sub/superscripts  that are physical variables are  italic,  while 
+those  that are just labels are roman (e.g.\ $C_p$, but $T_{\rmn{eff}}$).
+Equations should be punctuated as part of the sentence.
+        
+\subsection{Miscellaneous}
+
+e.g., i.e., cf., etc., are roman.
+Single quotes `  ' not double quotes `` ".
+Take care to use correct units -- see recent \hbox{issues} for  details. 
+Use  superscript $-1$, not solidus /, for units -- e.g.\ km~s$^{-1}$ not 
+km/s. The unit of arcseconds is arcsec when used to denote  angular  
+size  or separation (e.g.\ `beamsize 12~arcsec',  `30~arcsec 
+west  of  the star'); use \arcsec\ for positions (e.g.\  
+Dec.~$-30^\circ$~29\arcmin~23\arcsec) (similarly for arcminutes). 
+The unit of magnitudes is  mag, 
+not superscript m. Percentages should be written `per cent',  not 
+\%.  Use the degree symbol $^\circ$ (\verb"$^\circ$")  except to denote, e.g., areas,  where      
+`deg$^2$'  may be more appropriate (e.g.\ `a survey area of 3~deg$^2$'). 
+Degree symbols should be positioned above the decimal  point  if 
+there  is one -- i.e.\ 23\fdg 4 not 23.4$^\circ$ (similarly for  superscript 
+h, m, s, and \arcmin, \arcsec\ symbols in coordinates). See guide for coding.
+Ionized  species  should be denoted by small caps,  with  a  thin 
+space -- e.g.\ \hbox{He\,{\sc ii}}, \hbox{C\,{\sc iv}}, 
+\hbox{[Fe\,{\sc ii}]} 465.8 nm, \hbox{N\,{\sc iii}} 463.4~nm.  If 
+lack  of the correct font at your site prevents this from  coming 
+out on your printout, it would be helpful if you were to indicate 
+as such on your manuscript so that the subeditor knows that there 
+is no need for correction.
+Computer software (e.g.\ {\sc figaro}) should be in small capitals.
+Satellite names should be italic (e.g.\ {\it Ginga, IRAS\/}).
+The correct bracket order is \{[( )]\}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Trouble-shooting}
+
+Authors may from time to time encounter problems with the  preparation  
+of their papers in \TeX/\LaTeX. The appropriate  action  to 
+take will depend on the nature of the problem -- the following is 
+intended to act as a guide.
+%
+\begin{enumerate}        
+\item If a problem is with \TeX/\LaTeX\ itself, rather than with the 
+actual macros, please refer to the appropriate handbooks for 
+initial advice.\footnote{\TeX : Knuth D., 1986, The \TeX book. 
+Addison Wesley; \LaTeX: Lamport L., 1985, \LaTeX\ User's Guide and 
+Reference Manual. Addison Wesley.} If the 
+solution cannot be found, and you suspect that the problem lies 
+with the macros, then please contact the RAS Journal Production
+team at Blackwell Science (BS), 23 Ainslie
+Place, Edinburgh EH3 6AJ, UK (Tel: 031 226 7232; Fax: 031 226 3803;
+omit the first zero if calling from outside the UK).
+The BS office will shortly be
+accessible by email -- please see the Instructions for Authors on 
+the inside back cover of Monthly Notices for details. Please 
+provide precise details of the problem (what you were trying to 
+do -- ideally, include examples of source code as well -- and 
+what exactly happened; what error message was received).
+        
+\item Problems with page make-up, particularly in the two-column 
+mode (e.g.\ large spaces between paragraphs, or under headings or 
+figures; uneven columns; figures/tables appearing out of order). 
+Please do {\it not\/} attempt to remedy these yourself using `hard' page 
+make-up commands -- the typesetters at Cambridge University Press 
+(CUP) will sort out problems when typesetting. (You may, if you 
+wish, draw attention to particular problems when submitting the 
+final version of your paper.)
+        
+\item If a required font is not available at your site, allow \TeX\
+to substitute the font and report the problem on your disk 
+documentation form. 
+
+\item If you choose to use \verb"\boldmath", you may find that boldmath has not been defined locally for use with a particular size of font. If this is the case, you will get a message that reads something like:
+%
+\begin{verbatim}
+LaTeX Warning: No \boldmath typeface in this size, 
+using \unboldmath on input line 44.
+\end{verbatim}
+
+If you get this message, you are advised to use the alternative described
+in this guide for attaining bold face math italic characters,
+i.e.\ \verb"\bmath{...}".
+\end{enumerate}
+        
+        
+\subsection{Fixes for coding problems}
+
+The new versions of the style files and macros have been designed
+to  minimize the need for user-defined macros to  create  special
+symbols. Authors are urged, wherever possible, to use the following
+coding rather than create their own. This will minimize  the
+danger of author-defined macros being accidentally  `over-ridden'
+when the paper is typeset in Monotype Times (see Section~\ref{TMth},
+`Typesetting  mathematics', in the \LaTeX\ author guide).
+%
+\begin{enumerate}
+\item Fonts in sections and paper titles. The following are  examples
+of styles that sometimes prove difficult to code.
+\end{enumerate}
+
+
+\subsubsection*{P\lowercase{aper titles}}
+
+\boxit{\huge\bf
+  A survey of \textbfit{IRAS\/} galaxies at
+  $\bmath{\delta > \bld{50}^\circ}$}
+%
+is produced by:
+%
+\begin{verbatim}
+\title[A survey of IRAS galaxies at
+       $\delta > 50^\circ$]
+  {A survey of \textbfit{IRAS\/} galaxies at
+   $\bmath{\delta > \bld{50}^\circ}$}
+\end{verbatim}
+\bigskip
+
+\boxit{\huge\bf Observations of compact H\,{\Large\bf II} regions}
+%
+is produced by:
+%
+\begin{verbatim}
+\title[Observations of compact H\,{\normalsize
+       \it II} regions]
+  {Observations of compact H\,{\Large\bf II}
+   regions}
+\end{verbatim}
+
+
+\subsubsection*{S\lowercase{ection headings}}
+
+\boxit{\bf 1\quad THE \textbfit{IRAS\/} DATA FOR
+  $\bmath{\delta > \bld{50}^\circ}$}
+%
+is produced by:
+%
+\begin{verbatim}
+\section[]{The \textbfit{IRAS\/} data for
+  $\bmath{\delta > \bld{50}^\circ}$
+\end{verbatim}
+\bigskip
+
+\boxit{\bf 2\quad H\,{\sevensize\bf II} GALAXIES AT
+  $\bmath{\lowercase{z} > \bld{1.6}}$}
+%
+is produced by:
+%
+\begin{verbatim}
+\section[]{H\,{\sevensize\bf II} galaxies at
+  $\bmath{\lowercase{z} > \bld{1.6}}$}
+\end{verbatim}
+
+
+\subsubsection*{S\lowercase{ubsection headings}}
+        
+\boxit{\bf 2.1\quad The \textbfit{IRAS\/} data for
+  $\bmath{\delta > \bld{50}^\circ}$: galaxies\\
+  at $\bmath{z > \bld{1.5}}$}
+%
+is produced by:
+%
+\begin{verbatim}
+\subsection[]{The \textbfit{IRAS\/} data for
+  $\bmath{\delta > \bld{50}^\circ}$: galaxies\\
+  at $\bmath{z > \bld{1.5}}$}
+\end{verbatim}
+\bigskip
+
+\boxit{\bf 2.2\quad Observations of compact H\,{\sevensize\bf II} regions}
+%
+is produced by:
+%
+\begin{verbatim}
+\subsection[]{Observations of compact 
+  H\,{\sevensize\bf II} regions}
+\end{verbatim}
+\bigskip
+
+\boxit{\it 2.2.1\quad A survey of radio galaxies for
+  $\delta > \itl{50}^\circ$}
+%
+is produced by:
+%
+\begin{verbatim}
+\subsubsection[]{A survey of radio galaxies for 
+  $\delta > \itl{50}^\circ$}
+\end{verbatim}
+\bigskip
+        
+\boxit{\it 2.2.2\quad Determination of T$_{eff}$ in compact
+  H\,{\sevensize\it II} regions}
+%
+is produced by:
+%
+\begin{verbatim}
+\subsubsection[]{Determination of T$_{eff}$ in
+  compact H\,{\sevensize\it II} regions}
+\end{verbatim}
+\bigskip
+
+\begin{enumerate}
+\stepcounter{enumi}
+
+\item Small capitals and other unusual fonts in table and figure captions:
+\par\smallskip
+\boxit{\small {\bf Figure 1.} Profiles of the H$\alpha$ and
+  N\,{\sc iii} lines observed.}
+%
+is produced by:
+%
+\begin{verbatim}
+\caption{Profiles of the H$\alpha$ and
+  N\,{\sc iii} lines observed.}
+\end{verbatim}
+        
+\item Multiple author lists (to get the correct vertical spacing 
+and wraparound on the title page of a multiple-author paper).
+\par\smallskip
+
+\boxit{\huge\bf
+  The variation in the\newline 
+  strength of low-$\bmath{l}$ solar 
+  $\bmath{p}$-modes: 1981--2
+\medskip
+
+\LARGE
+  Y. Elsworth, R. Howe, G.R. Isaac, C.P. McLeod,  
+  B.A. Miller, R. New,
+  C.C. Speake and S.J. Wheeler}
+%
+is produced by:
+%
+\begin{verbatim}      
+\title[The variation in the strength of low-$l$ 
+  solar $p$-modes: 1981--2]%
+  {The variation in the strength of 
+  low-$\bmath{l}$ solar 
+  $\bmath{p}$-modes: 1981--2}
+        
+\author[Y. Elsworth et al.]
+  {Y. Elsworth, R. Howe, G.R. Isaac,\cr 
+  C.P. McLeod, B.A. Miller, R. New,\cr 
+  C.C. Speake and S.J. Wheeler}
+\end{verbatim}        
+        
+\item Ionized species (as used in the examples above). The correct 
+style calls for the use of small capitals and a thin space after 
+the symbol for the element: e.g.\ for \hbox{H\,{\sc ii}}, use the code 
+\verb"\hbox{H\,{\sc ii}}". The use of the \verb"\hbox" will stop the 
+H and the {\sc ii} being separated.
+
+\item Lower case greek pi ($\pi$), mu ($\mu$) and partial ($\partial$).
+In certain circumstances, the Monthly Notices style calls for these to be
+roman [when pi is used to denote the constant 3.1415$\ldots$, mu is
+used to denote `micro' in a unit (e.g.\ $\umu$m, $\umu$Jy), and partial
+is a differential symbol]. See Subsubsection~\ref{upgreek} for instructions.
+
+\item Decimal degrees, arcmin, arcsec, hours, minutes and seconds. 
+The symbol needs to be placed vertically above the decimal point. 
+For example, the sentence
+%
+\begin{quote}
+The observations were made along position angle
+120\fdg 5, starting from the central coordinates
+$\rmn{RA}(1950)=19^{\rmn{h}}~22^{\rmn{m}}~18\fs2$,
+$\rmn{Dec.}~(1950)=45^\circ~18'~36\farcs 4$
+\end{quote}
+%        
+uses the following coding:
+%
+\begin{verbatim}
+The observations were made along position angle
+120\fdg 5, starting from the central coordinates
+$\rmn{RA}(1950)=19^{\rmn{h}}~22^{\rmn{m}}~18\fs2$,
+$\rmn{Dec.}~(1950)=45^\circ~18'~36\farcs 4$
+\end{verbatim}
+
+\item The correct coding for the prime symbol \arcmin\ is 
+\verb"\arcmin", and that for \arcsec\ is \verb"\arcsec"; see the two
+tables on special symbols.
+        
+\item N-rules, hyphens and minus signs (see style guide for  
+correct usage). To create the correct symbols in the sentence
+%        
+\begin{quote}
+The high-resolution observations were made along a
+line at an angle of $-15^\circ$ (east from north)
+from the axis of the jet, which runs north--south
+\end{quote}
+you would use the following code:
+%
+\begin{verbatim}
+The high-resolution observations were made along a
+line at an angle of $-15^\circ$ (east from north)
+from the axis of the jet, which runs north--south
+\end{verbatim}
+
+\item Vectors and matrices should be bold italic and bold sans
+serif respectively. To create the correct fonts for the vector $\bmath{x}$
+and the matrix \textbfss{P}, you should use \verb"$\bmath{x}$" and
+\verb"\textbfss{P}" respectively; \verb"\mathbfss" is for use in
+math mode. Bold face text italic can be obtained by using
+\verb"\textbfit{..}" and \verb"\mathbfit{..}" for math mode.
+        
+\item Bold italic superscripts and subscripts. To get  these 
+to  come  out  in the correct font and the right  size,  
+you need to use \verb"\bmath". You can create the output
+$\bmath{k_x}$ by typing \verb"$\bmath{k_x}$".
+Try to avoid using \LaTeX\ commands to determine script sizes 
+that are already  defined in the style file. For example, macros such as
+%
+\begin{verbatim}        
+\newcommand{\th}{^\mbox{\tiny th}}
+\end{verbatim}
+%        
+are generating extra work;
+%
+\begin{verbatim}
+\newcommand{\th}{^{th}}
+\end{verbatim}
+%
+will do, and  will get  the  size  of the superscript right whether  
+in  main  text, tables or captions (the use of \verb"\tiny" over-rides 
+the style  file). 
+Also, the \verb"\mbox" is not necessary, as \TeX\ won't split a 
+superscript/subscript from its variable at a line break.
+
+\item Calligraphic letters (uppercase only).
+%
+\ifnfsstwo
+%
+Normal uppercase calligraphic can be produced with \verb"\mathcal" as
+normal (in math mode). Bold calligraphic can be produced with \verb"\bmath".
+e.g.\ \verb"$\bmath{\mathcal A}$" gives $\bmath{\mathcal A}$.
+%
+\else
+%
+Normal uppercase calligraphic can be produced with \verb"\cal" as
+normal (in math mode). Bold calligraphic can be produced with \verb"\bmath".
+e.g.\ \verb"$\bmath{\cal A}$" gives $\bmath{\cal A}$.
+%
+\fi
+
+\item Automatic scaling of brackets. The codes \verb"\left" and  
+\verb"\right" should  be used to scale brackets automatically to
+fit the equation being set. For example, to get
+\[
+  v = x \left( \frac{N+2}{N} \right)
+\]        
+use the code
+%
+\begin{verbatim}
+\[
+  v = x \left( \frac{N+2}{N} \right)
+\]        
+\end{verbatim}        
+        
+\item Roman font in equations. It is often necessary to make some 
+symbols roman in an equation (e.g.\ units, subscripts). For  example, 
+to get the following output:
+\[
+  \sigma \simeq (r/13~h^{-1}~\rmn{Mpc})^{-0.9}, 
+  \qquad \omega = \frac{N-N_{\rmn{s}}}{N_{\rmn{R}}},
+\]
+you should use:
+%
+\begin{verbatim}
+\[
+  \sigma \simeq (r/13~h^{-1}~\rmn{Mpc})^{-0.9}, 
+  \qquad \omega=\frac{N-N_{\rmn{s}}}{N_{\rmn{R}}},
+\]
+\end{verbatim}
+
+\item Continuation figure and table captions.
+See Section~\ref{contfigtab}.
+\end{enumerate}
+
+
+\subsection{Springer-Verlag macro names}
+
+These have been incorporated from the Astronomy \& Astrophysics \LaTeX\ 
+style file, to aid in the creation of various commonly used
+astronomical symbols. Please see Subsection~\ref{SVsymbols} for details.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bsp % ``This paper has been produced using the ...''
+
+\label{lastpage}
+
+\end{document}
