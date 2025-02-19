@@ -3219,3 +3219,37 @@ input, select, textarea {
 			}
 
 	}
+
+	/* Tab Styling */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.tab-btn:hover, .tab-btn.active {
+    background: #e44c65;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}
